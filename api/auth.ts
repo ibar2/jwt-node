@@ -3,16 +3,17 @@ import { usersmodel } from '../models/schemas';
 
 export  function auth(app: Express) {
     app.get('/', (req: Request, res: Response) => {
-        res.send('hello everyone hi!!!');
+        const cookievalue = req.cookies;
+        res.send('hello we got the cookie');
     });
 
     app.post('/auth', async (req: Request, res: Response) => {
-        let password = req.body.password
-        let username = req.body.username
-        var userfound = await usersmodel.find({username:username, password:password})
+        let password = req.body.password;
+        let username = req.body.username;
+        var userfound = await usersmodel.find({username:username, password:password});
         if (userfound.length > 0){
-            res.send('founded')
+            res.status(201).send('founded');
         }
-        else{res.send('not founded error')}
-    })
-}
+        else{res.status(404).send('not founded error')};
+    });
+};
