@@ -3,7 +3,7 @@ import { usersmodel } from "../models/schemas";
 import { Express } from "express";
 var jwt = require('jsonwebtoken');
 
-const SecretJwtKey = process.env.Secret || 'default secret key'
+export const SecretJwtKey = process.env.Secret || 'default secret key'
 export const maxAge = 24*60*60*1000 // 1 day
 
 //validator helper
