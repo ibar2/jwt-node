@@ -16,9 +16,21 @@ users.pre('save', async function (next) {
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next()
-})
+});
 
-
+users.statics.login = async function(user, password){
+    var user = await this.findOne({username: user})
+    if (user){
+         var verified = await bcrypt.compare(password, user.password);
+         if (verified){
+            return user
+         }else{
+            throw Error('username or password not correct');
+         }
+    }else{
+        throw Error('username or password not correct')
+    }
+}
 
 
 export var usersmodel = mongoose.model('users', users);

@@ -8,11 +8,15 @@ var cookieparser = require('cookie-parser');
 
 
 const app = express();
+
+app.disable('x-powered-by')
+
+
 async function dbconnect(){
     await mongoose.connect('');
 
-}
-dbconnect()
+};
+dbconnect();
 const port = process.env.PORT || 8000
 
 app.use(express.json());
